@@ -1,25 +1,27 @@
 from django.shortcuts import render
-from .models import Post, Contact
+from .models import Post, Contact, Perfil
 
 
 def hello_blog(request):
-    lista = [
-        'Django', 'Python', 'Git', 'Html', 
-        'Banco de dados', 'Linux', 'Nginx', 'Uwsgi',
-        'Systemctl'
-    ]
+
     list_posts = Post.objects.filter(deleted=False)
 
+    meu_perfil = Perfil.objects.all()
+
     data = {
-        'name': 'Curso de Django 3', 
-        'lista_tecnologias': lista, 
-        'posts': list_posts }
+
+        'posts': list_posts,
+        'perfils': meu_perfil,
+    }
 
     return render(request, 'index.html', data)
+
 
 def post_detail(request, id):
     post = Post.objects.get(id=id)
     return render(request, 'post_detail.html', {'post': post})
+
+
 
 def save_form(request):
     name = request.POST['name']

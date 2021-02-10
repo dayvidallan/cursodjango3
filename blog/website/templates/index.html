@@ -1,132 +1,90 @@
-{% load static %}
-
-<!DOCTYPE HTML>
-<!--
-	Strata by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Drª Carol Duarte</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
-	</head>
-	<body class="is-preload">
-
-		<!-- Header -->
-			<header id="header">
-				<div class="inner">
-					<a href="#" class="image avatar"><img src="{% static 'images/avatar.jpg' %}" alt="" /></a>
-					<h1><strong>Curso de Django 3</strong>, simplificando o desenvolvimento<br />
-					Do zero a nuvem<br />
-					criado por <a href="http://html5up.net">Gregory Pacheco</a>.</h1>
-				</div>
-			</header>
+{% extends 'base.html' %}
+{% block content %}
 
 		<!-- Main -->
+
+
 			<div id="main">
+				{% for perfil in perfils %}
 
 				<!-- One -->
 					<section id="one">
 						<header class="major">
-							<h2>Gregory Pacheco</h2>
+							<h2>Drª {{ perfil.name }}<br />
+							{{ perfil.texto }}</h2>
 						</header>
-						<p>Software Full Stack Engineer with 6+ years of experience on the industry with abilities to walk around all the software development workflow since the conception, idea validation, planning, structuring software architecture, deploying, monitoring and training people regardless it needs to be a desktop application, mobile app, server-side script, microservice or a web platform. Python is my main language since 2012 but I have no problem with learning new languages, frameworks or any type of technology, I usually say that the languages and frameworks are just tools to get me to a working product, so depends on what solves the problem more efficiently, fastly and reliably.</p>
-						<ul class="actions">
-							<li><a href="https://www.linkedin.com/in/pachecogregory/" class="button">Learn More</a></li>
-						</ul>
+						<p>{{ perfil.apresent }}</p>
+
 					</section>
+				{% endfor %}
 
 				<!-- Two -->
 					<section id="two">
-						<h2>Posts</h2>
+						<h2>Postagens</h2>
 						<div class="row">
-                            {% for post in posts %}
-                                <article class="col-6 col-12-xsmall work-item">
-									{% if post.imagem %}
-										<img src="{{ post.imagem.url }}" alt="" width="250px" height="100px"/>
-									{% else %}
-										<a href="{% static 'images/fulls/01.jpg' %}" class="image fit thumb">
-										<img src="{% static 'images/thumbs/01.jpg' %}" alt="" /></a>
-									{% endif %}
-									
-                                    <h3>{{ post.title }}</h3>
-                                    <p>{{ post.sub_title }}</p>
-                                    <span>{{ post.get_categoty_label }}</span>
-                                    <ul class="actions">
-                                        <li><a href="{% url 'post_detail' post.id %}" class="button">Read more</a></li>
-                                    </ul>
-                                </article>
-                            {% endfor %}
+							{% for post in posts %}
+								<article class="col-6 col-12-xsmall work-item">
+									<a href="{{ post.imagem.url }}" class="image fit thumb"><img
+											src="{{ post.imagem.url }}" alt="" /></a>
+									<h3>{{ post.title }}</h3>
+									<p>{{ post.sub_title }}</p>
+
+									<ul class="actions">
+										<li><a href="{% url 'post_detail' post.id %}" class="button">Leia Mais</a></li>
+									</ul>
+								</article>
+							{% endfor %}
+
 						</div>
-						<ul class="actions">
-							<li><a href="#" class="button">Full Portfolio</a></li>
-						</ul>
 					</section>
 
 				<!-- Three -->
 					<section id="three">
-						<h2>Get In Touch</h2>
-						<p>Accumsan pellentesque commodo blandit enim arcu non at amet id arcu magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem vulputate lorem neque lorem ipsum dolor.</p>
+						<h2>SOLICITAR COTAÇÃO</h2>
 						<div class="row">
 							<div class="col-8 col-12-small">
 								<form method="post" action="{% url 'save_form' %}">
 									{% csrf_token %}
 									<div class="row gtr-uniform gtr-50">
-										<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
-										<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
-										<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
+										<div class="col-6 col-12-xsmall"><input type="text" name="name" id="Nome" placeholder="Name" /></div>
+										<div class="col-6 col-12-xsmall"><input type="text" name="fone" id="fone" placeholder="Telefone" /></div>
+										<div class="col-12"><input type="email" name="email" id="E-mail" placeholder="Email" /></div>
+										<div class="col-12"><textarea name="message" id="message" placeholder="Como podemos ajudar?" rows="4"></textarea></div>
 									</div>
-									<input type="submit" value="Send Message" />
+									<br>
+									<ul class="actions">
+										<li><input type="submit" value="Enviar" /></li>
+									</ul>
 								</form>
 
 							</div>
 							<div class="col-4 col-12-small">
-								<ul class="labeled-icons">
-									<li>
-										<h3 class="icon solid fa-home"><span class="label">Address</span></h3>
-										1234 Somewhere Rd.<br />
-										Nashville, TN 00000<br />
-										United States
-									</li>
-									<li>
-										<h3 class="icon solid fa-mobile-alt"><span class="label">Phone</span></h3>
-										000-000-0000
-									</li>
-									<li>
-										<h3 class="icon solid fa-envelope"><span class="label">Email</span></h3>
-										<a href="#">hello@untitled.tld</a>
-									</li>
-								</ul>
+								{% for perfil in perfil %}
+									<ul class="labeled-icons">
+										<li>
+											<h3 class="icon solid fa-home"><span class="label">Address</span></h3>
+											{{perfil.endereco}}<br />
+											{{perfil.bairro}}<br />
+											{{perfil.cidade}}/{{perfil.estado}}
+										</li>
+										<li>
+											<h3 class="icon solid fa-mobile-alt"><span class="label">Phone</span></h3>
+											<li><a href="https://wa.me/message/O243K5ANNTQ4J1" target="_blank"  ><span class="label" >{{perfil.nrTelCelular}}</span></a></li>
+
+										</li>
+										<li>
+											<h3 class="icon solid fa-envelope"><span class="label">Email</span></h3>
+											<a href="#">{{perfil.email}}</a>
+										</li>
+									</ul>
+								{% endfor %}
 							</div>
 						</div>
 					</section>
+
 			</div>
 
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<ul class="icons">
-						<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-						<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-						<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</div>
-			</footer>
-
-		<!-- Scripts -->
-			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
-			<script src="{% static 'assets/js/jquery.poptrox.min.js' %}"></script>
-			<script src="{% static 'assets/js/browser.min.js' %}"></script>
-			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
-			<script src="{% static 'assets/js/util.js' %}"></script>
-			<script src="{% static 'assets/js/main.js' %}"></script>
-
-	</body>
 </html>
+
+
+{% endblock %}

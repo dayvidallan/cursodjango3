@@ -1,0 +1,65 @@
+{% load static %}
+
+
+<!DOCTYPE HTML>
+
+<html>
+
+	<head>
+		<title>Drª Carol Duarte</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					{% for perfil in perfils %}
+
+						<a href="{{ perfil.imagem.url }}" class="image avatar"><img src="{{ perfil.imagem.url }}" alt="" /></a>
+					{% endfor %}
+					{% for perfil in perfils %}
+						<h1><strong>Drª {{ perfil.name }} - {{ perfil.especialidade }}</strong>
+						<br />
+						</a></h1>
+					{% endfor %}
+
+				</div>
+			</header>
+
+
+        {% block content %}
+        {% endblock %}
+
+
+        {% block static %}
+        {% endblock %}
+
+
+<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="icons">
+						<li><a href="https://www.facebook.com/dracarolduarte-101681791939478/" target="_blank" class="icon brands fa-facebook" ><span class="label">Facebook</span></a></li>
+						<li><a href="https://wa.me/message/O243K5ANNTQ4J1" target="_blank"  class="icon brands fa-whatsapp"><span class="label" >Whatsapp</span></a></li>
+						<li><a href="https://www.instagram.com/dra.carolduarte/" target="_blank" class="icon brands fa-instagram"><span class="label">instagram</span></a></li>
+						<li><a href="#" target="_blank" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled</li><li></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.poptrox.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>
