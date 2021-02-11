@@ -53,3 +53,5 @@ User=contato
 WantedBy=multi-user.target
 
 cd /etc/systemd/system
+
+sudo systemctl restart djangovps.service
